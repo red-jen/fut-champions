@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fut-champion</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    
+
+
+<div class="app-container">
+
+         <div class="sidebar">
+
+             <div class="controls">
+                            <select class="formation-selector" id="formation-select">
+                     <option value="4-4-2">4-4-2 Classic</option>
+                     <option value="4-3-3">4-3-3 Attack</option>
+                     <option value="3-5-2">3-5-2 Wide</option>
+                     <option value="5-3-2">5-3-2 Defensive</option>
+                             </select>
+                           <button class="btn" id="add-player-btn">
+                    <i class="fas fa-plus"></i>
+                    Ajouter un joueur
+                           </button>
+
+
+
+                       <!-- hiden model -->
+
+               <div id="player-form" class="form" >
+                   <h3>Ajouter un joueur</h3>
+            <form id="form">
+                 <div class="form-group">
+                    <label for="playername">Nom du joueur</label>
+                    <input type="text" id="playername" required>
+                  </div>
+                            <div class="form-group">
+                <label for="player-position">Position</label>
+                                <select id="playerposition" required>
+                        <option value="GK">Gardien (GK)</option>
+                        <option value="CB">Défenseur central (CB)</option>
+                        <option value="LB">Latéral gauche (LB)</option>
+                        <option value="RB">Latéral droit (RB)</option>
+                        <option value="CM">Milieu central (CM)</option>
+                        <option value="LM">Milieu gauche (LM)</option>
+                        <option value="RM">Milieu droit (RM)</option>
+                        <option value="ST">Attaquant (ST)</option>
+                                 </select>
+                </div>
+                <div class="form-group">
+                    <label for="playerrating">Note</label>
+                    <input type="number" id="playerrating" min="1" max="99" required>
+                </div>
+                <button type="submit">Sauvegarder</button>
+            </form>
+        </div>
+            </div>
+        </div>
+    <div class="pitch-container">
+        <div class="pitch" id="pitch">
+            <!-- Les positions seront ajoutées dynamiquement -->
+        </div>
+    </div>
+
+    <div class="sidebar">
+        <div class="chemistry-display">
+            <h3>Chimie d'équipe</h3>
+            <div class="chemistry-meter">
+                <div class="chemistry-fill" id="chemistry-fill" style="width: 0%"></div>
+            </div>
+            <div class="chemistry-score">
+                Score: <span id="chemistry-score">0</span>/100
+            </div>
+        </div>
+        <div class="team-stats">
+            <!-- Statistiques d'équipe -->
+        </div>
+    </div>
+</div>
+
+
+
+
+    </div>
+
+
+
+        
+
+    <script src="./index.js"></script>
+</body>
+</html>
