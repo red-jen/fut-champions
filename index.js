@@ -8,17 +8,17 @@ let players = [];
 
     positions = {
         '4-4-2': [
-            { position: 'GK', x: 50, y: 60 },
+            { position: 'GK', x: 50, y: 55 },
             { position: 'LB', x: 20, y: 35 },
             { position: 'CB', x: 35, y: 35 },
             { position: 'CB', x: 65, y: 35 },
             { position: 'RB', x: 80, y: 35 },
-            { position: 'LM', x: 40, y: 60 },
-            { position: 'CM', x: 40, y: 20 },
-            { position: 'CM', x: 60, y: 20 },
+            { position: 'LM', x: 40, y: 20 },
+            { position: 'CM', x: 40, y: 10 },
+            { position: 'CM', x: 60, y: 10 },
             { position: 'RM', x: 80, y: 10 },
-            { position: 'ST', x: 35, y: 5 },
-            { position: 'ST', x: 65, y: 5 }
+            { position: 'ST', x: 17, y: -10 },
+            { position: 'ST', x: 85, y: -10 }
         ],
         '4-3-3': [
             { position: 'GK', x: 50, y: 85 },
@@ -90,14 +90,14 @@ function renderFormation() {
                       <div class="text-[0.9rem] mt-2">97</div>
                       <div class="text-[0.8rem]">RW</div>
                       <div class="block my-[0.2rem_0]">
-                        <img src="https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
+                        <img src="${player.flag}" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
                       </div>
                       <div class="block">
-                        <img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
+                        <img src="${player.logo}" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
                       </div>
                     </div>
                     <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
-                      <img src="https://selimdoyranli.com/cdn/fut-player-card/img/messi.png" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
+                      <img src="${player.photo}" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
                       <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
                         <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
                         <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
@@ -107,7 +107,7 @@ function renderFormation() {
                   <div class="relative">
                     <div class="text-[#e9cc74] w-[80%] mx-auto">
                       <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-                        <span class="block text-shadow-lg">MESSI</span>
+                        <span class="block text-shadow-lg">${player.name}</span>
                       </div>
                       <div class="flex justify-center mt-[0.2rem]">
                         <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
