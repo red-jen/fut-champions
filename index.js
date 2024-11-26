@@ -3,7 +3,7 @@ const playername = document.getElementById('playername');
 const playerposition = document.getElementById('playerposition');
 const playerrating = document.querySelector('#playerrating');
 
-
+let players = [];
 
     positions = {
         '4-4-2': [
@@ -35,38 +35,6 @@ const playerrating = document.querySelector('#playerrating');
     };
 
 
-    function renderFormation() {
-        const tecnique = document.getElementById('tecnique').value; // Get value dynamically
-        pitch.innerHTML = ''; // Clear the pitch container
-    
-        // if (!positions[tecnique]) {
-        //     console.error("Invalid formation");
-        //     return; // Stop if the formation is not valid
-        // }
-    
-        positions[tecnique].forEach(pos => {
-            const positionDiv = document.createElement('div');
-            positionDiv.className = 'playerposition';
-            positionDiv.style.position = 'absolute';
-            positionDiv.style.left = `${pos.x}%`;
-            positionDiv.style.top = `${pos.y}%`;
-            positionDiv.innerText = pos.position; // Show position name
-    
-            Find the player in this position
-            const player = players.find(p => p.position === pos.position);
-            if (player) {
-                positionDiv.innerHTML = `
-                    <div class="player-card">
-                        <div class="player-rating">${player.rating}</div>
-                        <div class="player-name">${player.name}</div>
-                    </div>
-                `;
-            }
-    
-            pitch.appendChild(positionDiv);
-        });
-    }
-  
 
 
 
@@ -74,7 +42,7 @@ const playerrating = document.querySelector('#playerrating');
   
 
 
-let players = [];
+
 function storedatafunction(event){
     event.preventDefault();
     let player = {
@@ -94,6 +62,35 @@ function storedatafunction(event){
   renderFormation();
   // saving to local storage
   localStorage.setItem('player', JSON.stringify(players))   // needs to clarify this thing here 
+}
+
+function renderFormation() {
+    const tecnique = tecniqueSelect.value; // Read selected formation
+    pitch.innerHTML = ''; // Clear previous pitch
+
+    if (positions[tecnique]) {
+        positions[tecnique].forEach(pos => {
+            const div = document.createElement('div');
+            div.classList.add('player-position');
+            div.style.left = `${pos.x}%`;
+            div.style.top = `${pos.y}%`;
+            div.textContent = pos.position;
+
+            // Find player for the current position
+            const player = players.find(p => p.position === pos.position);
+            if (player) {
+                div.innerHTML = `
+                    <div class="player-card">
+                        <div class="player-rating">${player.rating}</div>
+                        <div class="player-name">${player.name}</div>
+                    </div>
+                `;
+            }
+            pitch.appendChild(div);
+        });
+    } else {
+        console.warn(`Formation ${tecnique} not found.`);
+    }
 }
 
 
