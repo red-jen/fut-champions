@@ -177,75 +177,74 @@ fetch('./API.json').then(response =>response.json() )
                         console.log(players)
                         const cardscontainer = document.getElementById('cardscontainer');
                         cardscontainer.innerHTML = '';
-                        let count=0;
+                     
                      players.map( (player) => {
                         
-                        count++;
-                        console.log('hello')
+                    
+                        console.log('kokokoko')
                         const card = document.createElement('div');
-                        card.classList.add('player-card');
+                        // card.classList.add('');
                         card.innerHTML=`
-                           <div class="absolute flex items-center justify-center w-full h-screen">
-                <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
-                  <div class="relative flex text-[#e9cc74] px-[0.6rem]">
-                    <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
-                      <div class="text-[0.9rem] mt-2">97</div>
-                      <div class="text-[0.8rem]">RW</div>
-                      <div class="block my-[0.2rem_0]">
-                        <img src="https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
-                      </div>
-                      <div class="block">
-                        <img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
-                      </div>
+              <div class="relative w-[120px] h-[192px] bg-cover bg-center p-[1rem_0] bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
+                <div class="relative flex text-[#e9cc74] px-[0.6rem]">
+                  <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
+                    <div class="text-[0.9rem] mt-2">97</div>
+                    <div class="text-[0.8rem]">RW</div>
+                    <div class="block my-[0.2rem_0]">
+                      <img src="https://selimdoyranli.com/cdn/fut-player-card/img/argentina.svg" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
                     </div>
-                    <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
-                      <img src="https://selimdoyranli.com/cdn/fut-player-card/img/messi.png" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
-                      <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
-                        <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
-                        <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
-                      </div>
+                    <div class="block">
+                      <img src="https://selimdoyranli.com/cdn/fut-player-card/img/barcelona.svg" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
                     </div>
                   </div>
-                  <div class="relative">
-                    <div class="text-[#e9cc74] w-[80%] mx-auto">
-                      <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-                        <span class="block text-shadow-lg">MESSI</span>
-                      </div>
-                      <div class="flex justify-center mt-[0.2rem]">
-                        <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">97</span>
-                            <span class="font-light">PAC</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">95</span>
-                            <span class="font-light">SHO</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">94</span>
-                            <span class="font-light">PAS</span>
-                          </div>
+                  <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
+                    <img src="https://selimdoyranli.com/cdn/fut-player-card/img/messi.png" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
+                    <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
+                      <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
+                      <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="relative">
+                  <div class="text-[#e9cc74] w-[80%] mx-auto">
+                    <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
+                      <span class="block text-shadow-lg">MESSI</span>
+                    </div>
+                    <div class="flex justify-center mt-[0.2rem]">
+                      <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">97</span>
+                          <span class="font-light">PAC</span>
                         </div>
-                        <div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">99</span>
-                            <span class="font-light">DRI</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">35</span>
-                            <span class="font-light">DEF</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">68</span>
-                            <span class="font-light">PHY</span>
-                          </div>
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">95</span>
+                          <span class="font-light">SHO</span>
+                        </div>
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">94</span>
+                          <span class="font-light">PAS</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">99</span>
+                          <span class="font-light">DRI</span>
+                        </div>
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">35</span>
+                          <span class="font-light">DEF</span>
+                        </div>
+                        <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">68</span>
+                          <span class="font-light">PHY</span>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-                                                `;
+
+  `;
                                               
                                                 cardscontainer.appendChild(card)
                      })

@@ -3,7 +3,8 @@
 body {
     background: #1a1a1a;
     color: white;
-    
+    /* min-height: 100vh;
+    min-width: 100vh; */
 }
 
 * {
@@ -19,8 +20,9 @@ body {
     grid-template-columns: 300px 1fr 300px;
     gap: 20px;
     padding: 20px;
-    max-width: 1800px;
+    /* max-width: 1200px; */
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .sidebar {
@@ -29,6 +31,7 @@ body {
     padding: 20px;
     backdrop-filter: blur(8px);
     max-width: 400px;
+    overflow: hidden;
 }
 
 
@@ -54,10 +57,10 @@ input{
 }
 
 .pitch-container {
-    position: relative;
-    aspect-ratio: 2/3;
-    perspective: 1000px;
+     position: relative;
    
+    perspective: 1000px;
+    
 }
 
 .pitch {
@@ -87,10 +90,7 @@ input{
     padding: 20px;
     margin-top: 20px;
 }
-.teambench{
-    grid-column: 2;
-    width: 96%;
-}
+
 
 .chemistry-meter {
     width: 100%;
@@ -116,4 +116,27 @@ input{
     /* background-color: crimson; */
     position: absolute;
     /* transform: rotatex(-60deg); */
+}
+
+
+.sidebarb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+    max-width: 400px;
+}
+.teambench{
+    background-color: aqua;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 96%;
+    height: 900px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    
+}
+
+.teambench::-webkit-scrollbar{
+    display: none;
 }
