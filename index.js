@@ -22,7 +22,7 @@ let players = [];
         ],
         '4-3-3': [
             { position: 'GK', x: 50, y: 85 },
-            { position: 'LB', x: 20, y: 65 },
+            { position: 'LB', x: 20, y: 25 },
             { position: 'CB', x: 35, y: 65 },
             { position: 'CB', x: 65, y: 65 },
             { position: 'RB', x: 80, y: 65 },
@@ -36,8 +36,97 @@ let players = [];
     };
 
 
+    let firstDiv = null;
+    let secondDiv = null;
 
+let selectedCard = null;
 
+    // Add click event listeners to all boxes
+    pitch.addEventListener('click', (e) => {
+        const playerPosition = e.target.closest('.playerposition');
+        const cardPlayer = e.target.closest('.cardplayer');
+        
+        if (playerPosition) {
+            handleCardSelection(playerPosition);
+        }
+    });
+    
+    // Add click event listener to the cards container
+    document.getElementById('cardscontainer').addEventListener('click', (e) => {
+        const cardPlayer = e.target.closest('.cardplayer');
+        if (cardPlayer) {
+            handleCardSelection(cardPlayer);
+        }
+    });
+    
+    function handleCardSelection(element) {
+        if (!selectedCard) {
+            // First selection
+            selectedCard = element;
+            element.classList.add('selected');
+        } else {
+            // Second selection - perform the swap
+            swapCards(selectedCard, element);
+            selectedCard.classList.remove('selected');
+            selectedCard = null;
+        }
+    }
+    
+    function swapCards(card1, card2) {
+        // If swapping between pitch and bench
+        const card1Content = card1.innerHTML;
+        const card2Content = card2.innerHTML;
+    
+        // If card2 is empty position on pitch, move card1 there
+        if (card2.classList.contains('playerposition') && !card2.querySelector('.cardplayer')) {
+            card2.innerHTML = card1Content;
+            card1.innerHTML = '';
+        }
+        // If card1 is empty position on pitch, move card2 there
+        else if (card1.classList.contains('playerposition') && !card1.querySelector('.cardplayer')) {
+            card1.innerHTML = card2Content;
+            card2.innerHTML = '';
+        }
+        // If both positions have cards, swap them
+        else {
+            card1.innerHTML = card2Content;
+            card2.innerHTML = card1Content;
+        }
+    
+        updatePlayerPositions();
+    }
+    
+    function updatePlayerPositions() {
+        // Update the players array based on new positions
+        const pitchPositions = document.querySelectorAll('.playerposition');
+        pitchPositions.forEach((position, index) => {
+            const cardPlayer = position.querySelector('.cardplayer');
+            if (cardPlayer) {
+                const playerName = cardPlayer.querySelector('.text-shadow-lg').textContent;
+                const player = players.find(p => p.name === playerName);
+                if (player) {
+                    player.position = positions[tecniqueSelect.value][index].position;
+                }
+            }
+        });
+    }
+    
+    // Add CSS for selected state
+    const style = document.createElement('style');
+    style.textContent = `
+        .selected {
+            outline: 3px solid #00ff00;
+            transform: scale(1.05);
+            transition: all 0.2s ease;
+        }
+        .playerposition {
+            min-height: 192px;
+        }
+        .cardplayer {
+            cursor: pointer;
+        }
+    `;
+    document.head.appendChild(style);
 
 // form.addEventListener('submit',storedatafunction)
   
@@ -83,6 +172,7 @@ function renderFormation() {
             const player = players.find(p => p.position === pos.position);
             if (player) {
                 div.innerHTML = `
+                <div class="cardplayer">
                 <div class="absolute flex items-center justify-center w-full h-screen">
                 <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                   <div class="relative flex text-[#e9cc74] px-[0.6rem]">
@@ -143,6 +233,7 @@ function renderFormation() {
                   </div>
                 </div>
               </div>
+              </div>
                 `;
             }
             pitch.appendChild(div);
@@ -183,7 +274,7 @@ fetch('./API.json').then(response =>response.json() )
                     
                         console.log('kokokoko')
                         const card = document.createElement('div');
-                        // card.classList.add('');
+                        card.classList.add('cardplayer');
                         card.innerHTML=`
               <div class="relative w-[120px] h-[192px] bg-cover bg-center p-[1rem_0] bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                 <div class="relative flex text-[#e9cc74] px-[0.6rem]">

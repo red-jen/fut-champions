@@ -131,7 +131,7 @@ input{
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 96%;
-    height: 900px;
+    height: 1000px;
     overflow-y: scroll;
     scroll-behavior: smooth;
     
@@ -140,3 +140,11 @@ input{
 .teambench::-webkit-scrollbar{
     display: none;
 }
+
+.cardplayer{
+    cursor: pointer;
+
+}
+.selected {
+    opacity: 0.5;  /* Visual indicator for selection */
+  }
