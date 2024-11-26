@@ -94,3 +94,12 @@ input{
     background: var(--secondary-color);
     transition: width 0.3s ease;
 } */
+
+
+
+
+.playerposition{
+    width: 100px;
+    height: 100px;
+    background-color: crimson;
+}
