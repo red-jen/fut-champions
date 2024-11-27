@@ -150,5 +150,6 @@ input{
 
 }
 .selected {
-    opacity: 0.5;  /* Visual indicator for selection */
+    color: chartreuse; 
+    box-shadow: 10px 10px 5px lightblue; /* Visual indicator for selection */
   }
