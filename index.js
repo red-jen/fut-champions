@@ -4,6 +4,15 @@ const playerposition = document.getElementById('playerposition');
 const playerrating = document.querySelector('#playerrating');
 const tecniqueSelect = document.getElementById('tecnique');
 const pitch = document.getElementById('pitch');
+const playerimg = document.getElementById('playerimg');   
+const clubimg = document.getElementById('clubimg');       
+const countryimg = document.getElementById('countryimg');
+const pacrat = document.getElementById('pacrat');
+const shorat = document.getElementById('shorat');
+const passrat = document.getElementById('passrat');
+const drirat = document.getElementById('drirat');
+const defrat = document.getElementById('defrat');
+const phyrat = document.getElementById('phyrat');
 let players = [];
 let playing = []; // players li dakhlin tiran
 let benchplayers = [...players]
@@ -47,40 +56,121 @@ let benchplayers = [...players]
             // First card selected
             firstCardIndex = index;
             firstCardArray = sourceArray;
+            console.log(firstCardIndex,firstCardArray[firstCardIndex]);
+            console.log(firstCardArray);
             // document.querySelectorAll('.cardplayer')[index].classList.add('selected');
         } else {
+          console.log(index,sourceArray[index]);
+          console.log(sourceArray);
             // Second card selected, perform the swap
-            if (firstCardIndex !== index || firstCardArray !== sourceArray) {
+          
                 // Determine which arrays we're working with
-                let array1 = firstCardArray === playing ? playing : benchplayers;
-                let array2 = sourceArray === playing ? playing : benchplayers;
-                console.table(array1);
-                console.table(array2);
-                // Store the players to swap
-                const temp = array1[firstCardIndex];
-                
-                // Only swap if positions match or one array is benchplayers
-                if (array1 === benchplayers || array2 === benchplayers ) { // (array1[firstCardIndex].position === array2[index].position)
-                    
-                    // Perform the swap
-                    array1[firstCardIndex] = array2[index];
-                    array2[index] = temp;
-                    
-                    // Update displays
-                    displayers(benchplayers);
-                    renderFormation();
-                }
+                let temp = firstCardArray[firstCardIndex];
+                firstCardArray[firstCardIndex] = sourceArray[index];
+                sourceArray[index] = temp;
+
+                // console.log(firstCardIndex,firstCardArray[firstCardIndex]);
+                // console.log(firstCardArray);
+                // console.log(index,sourceArray[index]);
+                // console.log(sourceArray);
+                  // Refresh both displays
+            displayers(benchplayers)
+            renderFormation();
+          
             }
-            
-            // Reset selection
+            console.table(benchplayers);
+            console.table(playing);
+
             firstCardIndex = null;
             firstCardArray = null;
+          
+            // Reset selection
+           
             // document.querySelectorAll('.cardplayer').forEach(card => 
             //     card.classList.remove('selected'));
-        }
         
+      
     }
 
+
+    
+  function redisplay(benchplayers){
+    const cardscontainer = document.getElementById('cardscontainer');
+    cardscontainer.innerHTML = '';
+    benchplayers.forEach(benchplayer => {
+      
+      // console.log('bench player raha khdaaaaama a sidi')
+      const card = document.createElement('div');
+      card.classList.add('cardplayer');
+      card.innerHTML = `
+      <div class="cardplayer">
+      <div class="absolute flex items-center justify-center w-full h-screen">
+      <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
+        <div class="relative flex text-[#e9cc74] px-[0.6rem]">
+          <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
+            <div class="text-[0.9rem] mt-2">97</div>
+            <div class="text-[0.8rem]">RW</div>
+            <div class="block my-[0.2rem_0]">
+              <img src="${benchplayer.flag}" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
+            </div>
+            <div class="block">
+              <img src="${benchplayer.logo}" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
+            </div>
+          </div>
+          <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
+            <img src="${benchplayer.photo}" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
+            <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
+              <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
+              <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="text-[#e9cc74] w-[80%] mx-auto">
+            <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
+              <span class="block text-shadow-lg">${benchplayer.name}</span>
+            </div>
+            <div class="flex justify-center mt-[0.2rem]">
+              <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">97</span>
+                  <span class="font-light">PAC</span>
+                </div>
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">95</span>
+                  <span class="font-light">SHO</span>
+                </div>
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">94</span>
+                  <span class="font-light">PAS</span>
+                </div>
+              </div>
+              <div>
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">99</span>
+                  <span class="font-light">DRI</span>
+                </div>
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">35</span>
+                  <span class="font-light">DEF</span>
+                </div>
+                <div class="flex items-center text-[0.7rem] uppercase">
+                  <span class="font-bold mr-[0.2rem]">68</span>
+                  <span class="font-light">PHY</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+      `;
+      card.addEventListener('click', () => handleCardClick(playing.indexOf(benchplayer)));
+    
+      cardscontainer.appendChild(card)
+    })  
+  }
     // Add click event listeners to all boxes
   
 
@@ -99,7 +189,16 @@ function storedatafunction(event){
     
      name : playername.value,
      position : playerposition.value,
-     rating : playerrating.value 
+     rating: parseInt(playerrating.value, 10),
+     imgUrl: playerimg.value,
+     clubImgUrl: clubimg.value,
+     countryImgUrl: countryimg.value,
+     pac: parseInt(pacrat.value, 10),
+     sho: parseInt(shorat.value, 10),
+     pas: parseInt(passrat.value, 10),
+     dri: parseInt(drirat.value, 10),
+     def: parseInt(defrat.value, 10),
+     phy: parseInt(phyrat.value, 10)
     }
     players.push(player);
     document.forms[0].reset();   // dom alhmar mlk ktnsaha ha tselecte ga3 lforms (nodelist) li hiya arrraylike so ymkn lk tloopi 
@@ -117,6 +216,7 @@ function storedatafunction(event){
 function renderFormation() {
     const tecnique = tecniqueSelect.value; // Read selected formation
     pitch.innerHTML = ''; // Clear previous pitch
+    playing = [];
   // console.log('haaay im executed')
     if (positions[tecnique]) {
         positions[tecnique].forEach(pos => {
@@ -138,7 +238,7 @@ function renderFormation() {
               // localStorage.setItem('playings', JSON.stringify(playing));
             }
           
-            playing.forEach(player => {
+            if (playing.includes(player)) {
                 div.innerHTML = `
                 <div class="cardplayer">
                 <div class="absolute flex items-center justify-center w-full h-screen">
@@ -204,13 +304,14 @@ function renderFormation() {
               </div>
                 `;
                 div.addEventListener('click', () => handleCardClick(playing.indexOf(player), playing));
-            })
+                // console.log(playing.indexOf(player));
+            }
             pitch.appendChild(div);
         });
     } else {
-        console.warn(`Formation ${tecnique} not found.`);
+        // console.warn(`Formation ${tecnique} not found.`);
     }
-    console.log(playing);
+    // console.log(playing);
 }
 
 
@@ -242,7 +343,7 @@ fetch('./API.json').then(response =>response.json() )
                         benchplayers.map( (player) => {
                         
                     
-                        console.log('bench player raha khdaaaaama a sidi')
+                        // console.log('bench player raha khdaaaaama a sidi')
                         const card = document.createElement('div');
                         card.classList.add('cardplayer');
                         card.innerHTML=`
