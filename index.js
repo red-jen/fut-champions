@@ -7,6 +7,9 @@ const pitch = document.getElementById('pitch');
 let players = [];
 let playing = []; // players li dakhlin tiran
 let benchplayers = [...players]
+
+// localStorage.setItem('player', JSON.stringify(benchplayers));
+
     positions = {
         '4-4-2': [
             { position: 'GK', x: 50, y: 55 },
@@ -36,9 +39,33 @@ let benchplayers = [...players]
         ]
     };
 
-
-    function swapCards(array1, index1, array2, index2) {
-      [array1[index1], array2[index2]] = [array2[index2], array1[index1]];  // Swap using destructuring
+    let firstCardIndex = null;
+    let firstCardArray = null;
+    
+    function handleCardClick(index, sourceArray) {
+        if (firstCardIndex === null) {
+            // First card selected
+            firstCardIndex = index;
+            firstCardArray = sourceArray;
+            document.querySelectorAll('.cardplayer')[index].classList.add('selected');
+        } else {
+            // Second card selected, perform the swap
+            if (firstCardIndex !== index || firstCardArray !== sourceArray) {
+                // Swap players between arrays
+                const temp = firstCardArray[firstCardIndex];
+                firstCardArray[firstCardIndex] = sourceArray[index];
+                sourceArray[index] = temp;
+                
+                // Update displays
+                displayers(benchplayers);
+                renderFormation();
+            }
+            // Reset selection
+            firstCardIndex = null;
+            firstCardArray = null;
+            document.querySelectorAll('.cardplayer').forEach(card => 
+                card.classList.remove('selected'));
+        }
     }
 
     // Add click event listeners to all boxes
@@ -77,7 +104,7 @@ function storedatafunction(event){
 function renderFormation() {
     const tecnique = tecniqueSelect.value; // Read selected formation
     pitch.innerHTML = ''; // Clear previous pitch
-
+    playing = [];
     if (positions[tecnique]) {
         positions[tecnique].forEach(pos => {
             // console.log((pos.position === 'LM')? pos.x : 'notfound');
@@ -95,6 +122,7 @@ function renderFormation() {
            
               playing.push(player);
               console.log(playing);
+              // localStorage.setItem('playings', JSON.stringify(playing));
             }
             playing.forEach(player => {
                 div.innerHTML = `
@@ -161,6 +189,7 @@ function renderFormation() {
               </div>
               </div>
                 `;
+                div.addEventListener('click', () => handleCardClick(playing.indexOf(player), playing));
             })
             pitch.appendChild(div);
         });
@@ -262,6 +291,7 @@ fetch('./API.json').then(response =>response.json() )
               </div>
 
   `;
+  card.addEventListener('click', () => handleCardClick(benchplayers.indexOf(player), benchplayers));
                                               
                                                 cardscontainer.appendChild(card)
                      })
