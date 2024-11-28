@@ -47,25 +47,38 @@ let benchplayers = [...players]
             // First card selected
             firstCardIndex = index;
             firstCardArray = sourceArray;
-            document.querySelectorAll('.cardplayer')[index].classList.add('selected');
+            // document.querySelectorAll('.cardplayer')[index].classList.add('selected');
         } else {
             // Second card selected, perform the swap
             if (firstCardIndex !== index || firstCardArray !== sourceArray) {
-                // Swap players between arrays
-                const temp = firstCardArray[firstCardIndex];
-                firstCardArray[firstCardIndex] = sourceArray[index];
-                sourceArray[index] = temp;
+                // Determine which arrays we're working with
+                let array1 = firstCardArray === playing ? playing : benchplayers;
+                let array2 = sourceArray === playing ? playing : benchplayers;
+                console.table(array1);
+                console.table(array2);
+                // Store the players to swap
+                const temp = array1[firstCardIndex];
                 
-                // Update displays
-                displayers(benchplayers);
-                renderFormation();
+                // Only swap if positions match or one array is benchplayers
+                if (array1 === benchplayers || array2 === benchplayers ) { // (array1[firstCardIndex].position === array2[index].position)
+                    
+                    // Perform the swap
+                    array1[firstCardIndex] = array2[index];
+                    array2[index] = temp;
+                    
+                    // Update displays
+                    displayers(benchplayers);
+                    renderFormation();
+                }
             }
+            
             // Reset selection
             firstCardIndex = null;
             firstCardArray = null;
-            document.querySelectorAll('.cardplayer').forEach(card => 
-                card.classList.remove('selected'));
+            // document.querySelectorAll('.cardplayer').forEach(card => 
+            //     card.classList.remove('selected'));
         }
+        
     }
 
     // Add click event listeners to all boxes
@@ -91,7 +104,7 @@ function storedatafunction(event){
     players.push(player);
     document.forms[0].reset();   // dom alhmar mlk ktnsaha ha tselecte ga3 lforms (nodelist) li hiya arrraylike so ymkn lk tloopi 
     
-  console.warn('added' , {players})
+  // console.warn('added' , {players})
   window.alert('yeah')
 
   displayers(players); // n3awdo n5wiw wn3mro lcontainer bzyada dyalna 
@@ -104,7 +117,7 @@ function storedatafunction(event){
 function renderFormation() {
     const tecnique = tecniqueSelect.value; // Read selected formation
     pitch.innerHTML = ''; // Clear previous pitch
-    playing = [];
+  // console.log('haaay im executed')
     if (positions[tecnique]) {
         positions[tecnique].forEach(pos => {
             // console.log((pos.position === 'LM')? pos.x : 'notfound');
@@ -113,7 +126,7 @@ function renderFormation() {
             div.style.left = `${pos.x}%`;
             div.style.top = `${pos.y}%`;
             div.textContent = pos.position;
-            console.log('hay')
+            // console.log('hay')
           
 
             // Find player for the current position
@@ -121,9 +134,10 @@ function renderFormation() {
             if (player) {
            
               playing.push(player);
-              console.log(playing);
+              // console.log(playing);
               // localStorage.setItem('playings', JSON.stringify(playing));
             }
+          
             playing.forEach(player => {
                 div.innerHTML = `
                 <div class="cardplayer">
@@ -196,6 +210,7 @@ function renderFormation() {
     } else {
         console.warn(`Formation ${tecnique} not found.`);
     }
+    console.log(playing);
 }
 
 
@@ -220,14 +235,14 @@ fetch('./API.json').then(response =>response.json() )
 
 
                     function displayers(benchplayers){
-                        console.log(benchplayers)
+                        // console.log(benchplayers)
                         const cardscontainer = document.getElementById('cardscontainer');
                         cardscontainer.innerHTML = '';
                      
                         benchplayers.map( (player) => {
                         
                     
-                        console.log('kokokoko')
+                        console.log('bench player raha khdaaaaama a sidi')
                         const card = document.createElement('div');
                         card.classList.add('cardplayer');
                         card.innerHTML=`
@@ -299,7 +314,7 @@ fetch('./API.json').then(response =>response.json() )
                     }
 
 
-
+                   
 form.addEventListener('submit',storedatafunction);
 tecniqueSelect.addEventListener('change', renderFormation); 
                    
