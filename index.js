@@ -49,94 +49,29 @@ let benchplayers = [...players]
     };
 
     let firstCardIndex = null;
-    let firstCardArray = null;
+   
     
-    function handleCardClick(index, sourceArray) {
-     
+    function handleCardClick(index) {
+       if(!firstCardIndex){
+        firstCardIndex = index;
+
+       }else{
+        const temp = players[firstCardIndex];
+        players[firstCardIndex] = players[index];
+        players[index] = temp;
+       
+        firstCardIndex = null;
+       }
+       renderFormation();
+       displayers(players);
+       
       console.table(players);
          
     }
 
 
     
-  function redisplay(benchplayers){
-    const cardscontainer = document.getElementById('cardscontainer');
-    cardscontainer.innerHTML = '';
-    benchplayers.forEach(benchplayer => {
-      
-      // console.log('bench player raha khdaaaaama a sidi')
-      const card = document.createElement('div');
-      card.classList.add('cardplayer');
-      card.innerHTML = `
-      <div class="cardplayer">
-      <div class="absolute flex items-center justify-center w-full h-screen">
-      <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
-        <div class="relative flex text-[#e9cc74] px-[0.6rem]">
-          <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
-            <div class="text-[0.9rem] mt-2">97</div>
-            <div class="text-[0.8rem]">RW</div>
-            <div class="block my-[0.2rem_0]">
-              <img src="${benchplayer.flag}" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
-            </div>
-            <div class="block">
-              <img src="${benchplayer.logo}" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
-            </div>
-          </div>
-          <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
-            <img src="${benchplayer.photo}" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
-            <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
-              <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
-              <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
-            </div>
-          </div>
-        </div>
-        <div class="relative">
-          <div class="text-[#e9cc74] w-[80%] mx-auto">
-            <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-              <span class="block text-shadow-lg">${benchplayer.name}</span>
-            </div>
-            <div class="flex justify-center mt-[0.2rem]">
-              <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">97</span>
-                  <span class="font-light">PAC</span>
-                </div>
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">95</span>
-                  <span class="font-light">SHO</span>
-                </div>
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">94</span>
-                  <span class="font-light">PAS</span>
-                </div>
-              </div>
-              <div>
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">99</span>
-                  <span class="font-light">DRI</span>
-                </div>
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">35</span>
-                  <span class="font-light">DEF</span>
-                </div>
-                <div class="flex items-center text-[0.7rem] uppercase">
-                  <span class="font-bold mr-[0.2rem]">68</span>
-                  <span class="font-light">PHY</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    </div>
-      `;
-      card.addEventListener('click', () => handleCardClick(playing.indexOf(benchplayer)));
-    
-      cardscontainer.appendChild(card)
-    })  
-  }
-    // Add click event listeners to all boxes
+// Add click event listeners to all boxes
   
 
 // form.addEventListener('submit',storedatafunction)
@@ -270,7 +205,7 @@ function renderFormation() {
                     </div>
                 </div>
                 `;
-                div.addEventListener('click', () => handleCardClick(playing.indexOf(availablePlayer), playing));
+                div.addEventListener('click', () => handleCardClick(player.indexOf(div)));
             }
             pitch.appendChild(div);
         });
@@ -371,7 +306,7 @@ fetch('./API.json').then(response =>response.json() )
                                   </div>
                                 </div>
                               `;
-                              card.addEventListener('click', () => handleCardClick(benchplayers.indexOf(player), benchplayers));
+                              card.addEventListener('click', () => handleCardClick(players.indexOf(player)));
                               cardscontainer.appendChild(card);
                           }
                       });
