@@ -47,6 +47,17 @@ let benchplayers = [...players]
             { position: 'RW', x: 80, y: 15 }
         ]
     };
+    function loadFromLocalStorage() {
+      const savedPlayers = localStorage.getItem('players');
+      if (savedPlayers) {
+          players = JSON.parse(savedPlayers);
+          displayers(players);
+          renderFormation();
+      }
+  }
+  
+  // Add this event listener to load data when the page loads
+  document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
 
     let firstCardIndex = null;
     let firstCardPlayer = null;
@@ -85,7 +96,7 @@ let benchplayers = [...players]
                     // Reset the selection
                     firstCardIndex = null;
                     firstCardPlayer = null;
-                    
+                    localStorage.setItem('players', JSON.stringify(players));
                     // Re-render everything
                     renderFormation();
                     displayers(players);
@@ -133,11 +144,14 @@ function storedatafunction(event){
   // console.warn('added' , {players})
   window.alert('yeah')
 
-  displayers(players); // n3awdo n5wiw wn3mro lcontainer bzyada dyalna 
+  
 
-  renderFormation();
+ 
   // saving to local storage
   localStorage.setItem('player', JSON.stringify(players))   // needs to clarify this thing here 
+
+  displayers(players);  // n3awdo n5wiw wn3mro lcontainer bzyada dyalna 
+    renderFormation();
 }
 
 function renderFormation() {
@@ -248,13 +262,17 @@ function renderFormation() {
 
 
 
-fetch('./API.json').then(response =>response.json() )
-                    .then(playern => {players.push(...playern.players)
-                        
-                        displayers(players);
-                        renderFormation();
-                       
-                    });
+fetch('./API.json')
+    .then(response => response.json())
+    .then(playern => {
+        // Only load API data if localStorage is empty
+        if (!localStorage.getItem('players')) {
+            players.push(...playern.players);
+            localStorage.setItem('players', JSON.stringify(players));
+        }
+        displayers(players);
+        renderFormation();
+    });
                     
 
                     
@@ -335,15 +353,15 @@ fetch('./API.json').then(response =>response.json() )
                                 </div>
                               `;
                               card.addEventListener('click', () => handleCardClick(players.indexOf(player), players));
-                              card.addEventListener('dblclick', () => {
-                                card.remove();
-                                const playerIndex = players.indexOf(player);
-                                if (playerIndex > -1) {
-                                    players.splice(playerIndex, 1);
-                                    renderFormation();
-                                    displayers(players);
-                                }
-                            });
+                            //   card.addEventListener('dblclick', () => {
+                            //     card.remove();
+                            //     const playerIndex = players.indexOf(player);
+                            //     if (playerIndex > -1) { 
+                            //         players.splice(playerIndex, 1);
+                            //         renderFormation();
+                            //         displayers(players);
+                            //     }
+                            // });
                               cardscontainer.appendChild(card);
                           }
                       });
