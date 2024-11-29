@@ -16,7 +16,7 @@
          <div class="sidebar">
 
              <div class="controls">
-                            <select class="formation-selector" id="tecnique">
+                            <select class="formationselector" id="tecnique">
                      <option value="4-4-2">4-4-2 Classic</option>
                      <option value="4-3-3">4-3-3 Attack</option>
                      <option value="3-5-2">3-5-2 Wide</option>
@@ -55,12 +55,14 @@
                     <label for="playerrating">Note</label>
                     <input type="number" id="playerrating" min="1" max="99" required>
                 </div>
+                <div class="files">
                 <label for="playerimge">image url </label>
-                <input type="url" id="playerimg" required>
+                <input type="file" class="inputimg" id="playerimg" required>
                 <label for="clubimg"> club image url </label>
-                <input type="text" id="clubimg" required>
+                <input type="file"class="inputimg" id="clubimg" required>
                 <label for="countryimg"> country image url </label>
-                <input type="text" id="countryimg" required>
+                <input type="file" class="inputimg" id="countryimg" required>
+              </div>
                 <div class="form-group">
                   <label for="pacrat"> def Note</label>
                   <input type="number" id="pacrat" min="1" max="99" required>

@@ -41,7 +41,8 @@ body {
     gap: 10px;
     margin-bottom: 20px;
     color: rgb(34, 38, 37);
-    background-color: rgb(185, 170, 153);
+    
+  
   
 }
 
@@ -127,11 +128,11 @@ input{
     background: rgba(255, 255, 255, 0.1);
     border-radius: 15px;
     padding: 20px;
-    backdrop-filter: blur(8px);
+    /* backdrop-filter: blur(8px); */
     max-width: 400px;
 }
 .teambench{
-    background-color: aqua;
+    /* background-color: aqua; */
     display: grid;
     grid-template-columns: 1fr 1fr;
     width: 96%;
@@ -153,3 +154,148 @@ input{
     color: chartreuse; 
     box-shadow: 10px 10px 5px lightblue; /* Visual indicator for selection */
   }
+
+
+
+
+
+  .form {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+  }
+  
+  .form h3 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #e9cc74;
+    text-align: center;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    color: #e9cc74;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: #e9cc74;
+    box-shadow: 0 0 10px rgba(233, 204, 116, 0.5);
+  }
+  
+  button[type="submit"] {
+    width: 100%;
+    background-color: #e9cc74;
+    color: #333;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #d4b865;
+  }
+  .formationselector{
+    border-radius: 15px;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
+  }
+  
+    .btn {
+        background-color: #fff;
+        width: 50%;
+        text-align: center;
+        display: block;
+        margin: 0 auto;
+        padding: 10px 0;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    
+  }
+  .btn:hover {
+    background-color: #e9cc74;
+}
+.files>*{
+    background-color: rgba(34, 38, 37, 0.215);
+    border-radius: 5px;
+    padding: 10px;
+    
+}
+.inputimg{
+  
+}
+
+  
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .sidebar, .sidebarb {
+        max-width: 100%;
+    }
+
+    .pitch-container {
+        height: 60vh;
+        margin: 20px 0;
+    }
+
+    .teambench {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        max-height: 400px;
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .app-container {
+        padding: 10px;
+    }
+
+    .pitch-container {
+        height: 100vh;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .form {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .teambench {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .pitch-container {
+        height: 100vh;
+    }
+}

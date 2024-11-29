@@ -49,24 +49,51 @@ let benchplayers = [...players]
     };
 
     let firstCardIndex = null;
-   
+    let firstCardPlayer = null;
     
-    function handleCardClick(index) {
-       if(!firstCardIndex){
-        firstCardIndex = index;
-
-       }else{
-        const temp = players[firstCardIndex];
-        players[firstCardIndex] = players[index];
-        players[index] = temp;
-       
-        firstCardIndex = null;
-       }
-       renderFormation();
-       displayers(players);
-       
-      console.table(players);
-         
+    function handleCardClick(index, playerArray) {
+        if (firstCardIndex === null) {
+            // First card selected
+           
+            firstCardIndex = index;
+            firstCardPlayer = playerArray[index];
+            // Add visual indication that card is selected (optional)
+            console.log('First card selected:', firstCardPlayer.name);
+        } else {
+            // Second card selected - perform swap
+            const secondCardPlayer = playerArray[index];
+            if (firstCardPlayer.position !== secondCardPlayer.position) {
+              console.log('Cannot swap players with different positions');
+              firstCardIndex = null;
+              firstCardPlayer = null;
+              return;
+          }
+            
+            // Check if both players exist
+            if (firstCardPlayer && secondCardPlayer) {
+                // Find indices in the main players array
+                const firstPlayerMainIndex = players.findIndex(p => p.name === firstCardPlayer.name);
+                const secondPlayerMainIndex = players.findIndex(p => p.name === secondCardPlayer.name);
+                
+                // Perform the swap in the main players array
+              
+                    // Swap players
+                    const temp = players[firstPlayerMainIndex];
+                    players[firstPlayerMainIndex] = players[secondPlayerMainIndex];
+                    players[secondPlayerMainIndex] = temp;
+                    
+                    // Reset the selection
+                    firstCardIndex = null;
+                    firstCardPlayer = null;
+                    
+                    // Re-render everything
+                    renderFormation();
+                    displayers(players);
+                    
+                    console.log('Swap completed');
+                
+            }
+        }
     }
 
 
@@ -147,8 +174,8 @@ function renderFormation() {
                         <div class="relative w-[120px] h-[192px] bg-cover bg-center bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                             <div class="relative flex text-[#e9cc74] px-[0.6rem]">
                                 <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
-                                    <div class="text-[0.9rem] mt-2">97</div>
-                                    <div class="text-[0.8rem]">RW</div>
+                                    <div class="text-[0.9rem] mt-2">${availablePlayer.rating}</div>
+                                    <div class="text-[0.8rem]">${availablePlayer.position}</div>
                                     <div class="block my-[0.2rem_0]">
                                         <img src="${availablePlayer.flag}" alt="Flag" class="w-[0.8rem] h-[12px] object-contain" />
                                     </div>
@@ -172,29 +199,29 @@ function renderFormation() {
                                     <div class="flex justify-center mt-[0.2rem]">
                                         <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">97</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.pace}</span>
                                                 <span class="font-light">PAC</span>
                                             </div>
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">95</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.shooting}</span>
                                                 <span class="font-light">SHO</span>
                                             </div>
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">94</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.passing}</span>
                                                 <span class="font-light">PAS</span>
                                             </div>
                                         </div>
                                         <div>
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">99</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.dribbling}</span>
                                                 <span class="font-light">DRI</span>
                                             </div>
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">35</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.defending}</span>
                                                 <span class="font-light">DEF</span>
                                             </div>
                                             <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">68</span>
+                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.physical}</span>
                                                 <span class="font-light">PHY</span>
                                             </div>
                                         </div>
@@ -205,7 +232,8 @@ function renderFormation() {
                     </div>
                 </div>
                 `;
-                div.addEventListener('click', () => handleCardClick(player.indexOf(div)));
+                div.addEventListener('click', () => handleCardClick(players.indexOf(availablePlayer), players));
+              
             }
             pitch.appendChild(div);
         });
@@ -237,7 +265,7 @@ fetch('./API.json').then(response =>response.json() )
                       const cardscontainer = document.getElementById('cardscontainer');
                       cardscontainer.innerHTML = '';
                       renderFormation();
-                  console.log(playing);
+                  // console.log(playing);
                       players.forEach(player => {
                           // Check if the player is already in the 'playing' array
                           const isAlreadyPlaying = playing.some(playingPlayer => playingPlayer.name === player.name);
@@ -306,7 +334,16 @@ fetch('./API.json').then(response =>response.json() )
                                   </div>
                                 </div>
                               `;
-                              card.addEventListener('click', () => handleCardClick(players.indexOf(player)));
+                              card.addEventListener('click', () => handleCardClick(players.indexOf(player), players));
+                              card.addEventListener('dblclick', () => {
+                                card.remove();
+                                const playerIndex = players.indexOf(player);
+                                if (playerIndex > -1) {
+                                    players.splice(playerIndex, 1);
+                                    renderFormation();
+                                    displayers(players);
+                                }
+                            });
                               cardscontainer.appendChild(card);
                           }
                       });
