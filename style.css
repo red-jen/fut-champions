@@ -248,45 +248,54 @@ input{
   
 }
 
-  @media screen and (Max-width: 1200px){
-    .sidebar{
-        background-color: blueviolet;
-       
-        max-width: 100vh;
+  
+/* Media Queries */
+@media screen and (max-width: 1200px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        gap: 30px;
     }
-    .app-container{
-        grid-template-columns: 1fr ;
-        flex-wrap: wrap;
-       
+
+    .sidebar, .sidebarb {
+        max-width: 100%;
     }
-    .pitch{
-         height: 100vh;
-         
+
+    .pitch-container {
+        height: 60vh;
+        margin: 20px 0;
     }
-    
-    .form{
-        
-        /* display: none; */
+
+    .teambench {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        max-height: 400px;
+        gap: 15px;
     }
-    .sidebarb {
-        margin-top: 120%;
-        max-width: 100vh;
+}
+
+@media screen and (max-width: 1000px) {
+    .app-container {
+        padding: 10px;
     }
-    .teambench{
-        
-        display: grid;
-        grid-template-columns:  1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr ;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        width: 96%;
-        height: 400px;
-        overflow-y:scroll;
-        scroll-behavior: smooth;
-        position: relative;
-        
+
+    .pitch-container {
+        height: 100vh;
     }
-    .cardplayer{
-        
-        
+
+    .btn {
+        width: 100%;
     }
-    
-  }
+
+    .form {
+        padding: 15px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .teambench {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    }
+
+    .pitch-container {
+        height: 100vh;
+    }
+}
