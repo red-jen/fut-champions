@@ -52,44 +52,9 @@ let benchplayers = [...players]
     let firstCardArray = null;
     
     function handleCardClick(index, sourceArray) {
-        if (firstCardIndex === null) {
-            // First card selected
-            firstCardIndex = index;
-            firstCardArray = sourceArray;
-            console.log(firstCardIndex,firstCardArray[firstCardIndex]);
-            console.log(firstCardArray);
-            // document.querySelectorAll('.cardplayer')[index].classList.add('selected');
-        } else {
-          console.log(index,sourceArray[index]);
-          console.log(sourceArray);
-            // Second card selected, perform the swap
-          
-                // Determine which arrays we're working with
-                let temp = firstCardArray[firstCardIndex];
-                firstCardArray[firstCardIndex] = sourceArray[index];
-                sourceArray[index] = temp;
-
-                // console.log(firstCardIndex,firstCardArray[firstCardIndex]);
-                // console.log(firstCardArray);
-                // console.log(index,sourceArray[index]);
-                // console.log(sourceArray);
-                  // Refresh both displays
-            displayers(benchplayers)
-            renderFormation();
-          
-            }
-            console.table(benchplayers);
-            console.table(playing);
-
-            firstCardIndex = null;
-            firstCardArray = null;
-          
-            // Reset selection
-           
-            // document.querySelectorAll('.cardplayer').forEach(card => 
-            //     card.classList.remove('selected'));
-        
-      
+     
+      console.table(players);
+         
     }
 
 
@@ -214,104 +179,99 @@ function storedatafunction(event){
 }
 
 function renderFormation() {
-    const tecnique = tecniqueSelect.value; // Read selected formation
-    pitch.innerHTML = ''; // Clear previous pitch
-    playing = [];
-  // console.log('haaay im executed')
-    if (positions[tecnique]) {
-        positions[tecnique].forEach(pos => {
-            // console.log((pos.position === 'LM')? pos.x : 'notfound');
-            const div = document.createElement('div');
-            div.classList.add('playerposition');
-            div.style.left = `${pos.x}%`;
-            div.style.top = `${pos.y}%`;
-            div.textContent = pos.position;
-            // console.log('hay')
-          
+  const tecnique = tecniqueSelect.value;
+  pitch.innerHTML = '';
+  playing = [];
 
-            // Find player for the current position
-            const player = players.find(p => p.position === pos.position);
-            if (player) {
-           
-              playing.push(player);
-              // console.log(playing);
-              // localStorage.setItem('playings', JSON.stringify(playing));
-            }
+  if (positions[tecnique]) {
+      positions[tecnique].forEach(pos => {
+          const div = document.createElement('div');
+          div.classList.add('playerposition');
+          div.style.left = `${pos.x}%`;
+          div.style.top = `${pos.y}%`;
+          div.textContent = pos.position;
+
+          // Find all players for the current position
+          const positionPlayers = players.filter(p => p.position === pos.position);
           
-            if (playing.includes(player)) {
-                div.innerHTML = `
-                <div class="cardplayer">
-                <div class="absolute flex items-center justify-center w-full h-screen">
-                <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
+          // Find a player that isn't already in the playing array
+          const availablePlayer = positionPlayers.find(player => 
+              !playing.some(playingPlayer => playingPlayer.name === player.name)
+          );
+
+          if (availablePlayer) {
+              playing.push(availablePlayer);
+              div.innerHTML = `
+              <div class="cardplayer">
+              <div class="absolute flex items-center justify-center w-full h-screen">
+              <div class="relative w-[120px] h-[192px] bg-cover bg-center  bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                   <div class="relative flex text-[#e9cc74] px-[0.6rem]">
-                    <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
+                  <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
                       <div class="text-[0.9rem] mt-2">97</div>
                       <div class="text-[0.8rem]">RW</div>
                       <div class="block my-[0.2rem_0]">
-                        <img src="${player.flag}" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
+                      <img src="${availablePlayer.flag}" alt="Argentina" class="w-[0.8rem] h-[12px] object-contain" />
                       </div>
                       <div class="block">
-                        <img src="${player.logo}" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
+                      <img src="${availablePlayer.logo}" alt="Barcelona" class="w-[0.9rem] h-[16px] object-contain" />
                       </div>
-                    </div>
-                    <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
-                      <img src="${player.photo}" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
+                  </div>
+                  <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
+                      <img src="${availablePlayer.photo}" alt="Messi" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
                       <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
-                        <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
-                        <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
+                      <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
+                      <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
                       </div>
-                    </div>
+                  </div>
                   </div>
                   <div class="relative">
-                    <div class="text-[#e9cc74] w-[80%] mx-auto">
+                  <div class="text-[#e9cc74] w-[80%] mx-auto">
                       <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-                        <span class="block text-shadow-lg">${player.name}</span>
+                      <span class="block text-shadow-lg">${availablePlayer.name}</span>
                       </div>
                       <div class="flex justify-center mt-[0.2rem]">
-                        <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
+                      <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
                           <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">97</span>
-                            <span class="font-light">PAC</span>
+                          <span class="font-bold mr-[0.2rem]">97</span>
+                          <span class="font-light">PAC</span>
                           </div>
                           <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">95</span>
-                            <span class="font-light">SHO</span>
+                          <span class="font-bold mr-[0.2rem]">95</span>
+                          <span class="font-light">SHO</span>
                           </div>
                           <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">94</span>
-                            <span class="font-light">PAS</span>
+                          <span class="font-bold mr-[0.2rem]">94</span>
+                          <span class="font-light">PAS</span>
                           </div>
-                        </div>
-                        <div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">99</span>
-                            <span class="font-light">DRI</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">35</span>
-                            <span class="font-light">DEF</span>
-                          </div>
-                          <div class="flex items-center text-[0.7rem] uppercase">
-                            <span class="font-bold mr-[0.2rem]">68</span>
-                            <span class="font-light">PHY</span>
-                          </div>
-                        </div>
                       </div>
-                    </div>
+                      <div>
+                          <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">99</span>
+                          <span class="font-light">DRI</span>
+                          </div>
+                          <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">35</span>
+                          <span class="font-light">DEF</span>
+                          </div>
+                          <div class="flex items-center text-[0.7rem] uppercase">
+                          <span class="font-bold mr-[0.2rem]">68</span>
+                          <span class="font-light">PHY</span>
+                          </div>
+                      </div>
+                      </div>
                   </div>
-                </div>
+                  </div>
               </div>
               </div>
-                `;
-                div.addEventListener('click', () => handleCardClick(playing.indexOf(player), playing));
-                // console.log(playing.indexOf(player));
-            }
-            pitch.appendChild(div);
-        });
-    } else {
-        // console.warn(`Formation ${tecnique} not found.`);
-    }
-    // console.log(playing);
+              </div>
+              `;
+              div.addEventListener('click', () => handleCardClick(playing.indexOf(availablePlayer), playing));
+          }
+          pitch.appendChild(div);
+      });
+  } else {
+      console.warn(`Formation ${tecnique} not found.`);
+  }
 }
 
 
@@ -335,12 +295,12 @@ fetch('./API.json').then(response =>response.json() )
 
 
 
-                    function displayers(benchplayers){
+                    function displayers(players){
                         // console.log(benchplayers)
                         const cardscontainer = document.getElementById('cardscontainer');
                         cardscontainer.innerHTML = '';
                      
-                        benchplayers.map( (player) => {
+                        players.forEach( (player) => {
                         
                     
                         // console.log('bench player raha khdaaaaama a sidi')
