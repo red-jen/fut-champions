@@ -14,7 +14,7 @@ To run the FUT Champion app locally, follow these steps:
 
 Clone the repository:
 
-git clone https://github.com/yourusername/fut-champion.git
+git clone [https://github.com/yourusername/fut-champion.git](https://fut-champions-qvnzgnunf-red-jens-projects.vercel.app/)
 Navigate to the project directory:
 
 cd fut-champion
