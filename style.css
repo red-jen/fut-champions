@@ -65,7 +65,7 @@ input{
 }
 
 .pitch {
-    background-color: blue;
+    background-color: rgb(0, 0, 0);
     width: 100%;
     height: 100%;
     background-image: url(./field-bg.png);
@@ -244,9 +244,188 @@ input{
     padding: 10px;
     
 }
-.inputimg{
+/* .player-card {
+    width: 120px;
+    height: 192px;
+    background: url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png') center/cover;
+    padding: 1rem 0;
+    transition: all 0.3s ease;
+    position: relative;
+  }
   
-}
+  .card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    color: #e9cc74;
+  }
+  
+  .stats-top {
+    position: relative;
+    padding: 0 0.6rem;
+  }
+  
+  .player-stats {
+    position: absolute;
+    padding: 0.4rem 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  
+  .rating {
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  
+  .position {
+    font-size: 0.8rem;
+  }
+  
+  .flag img, .team-logo img {
+    width: 0.8rem;
+    height: 12px;
+    object-fit: contain;
+    margin: 0.2rem 0;
+  }
+  
+  .team-logo img {
+    height: 16px;
+    width: 0.9rem;
+  }
+  
+  .player-image {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .player-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    position: relative;
+    right: -0.6rem;
+  }
+  
+  .player-skills {
+    position: absolute;
+    right: 0;
+    bottom: -0.5rem;
+    width: 100%;
+    text-align: right;
+    font-size: 0.5rem;
+    color: #333;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  
+  .player-skills span {
+    margin-left: 0.4rem;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+  }
+  
+  .player-info {
+    margin-top: auto;
+  }
+  
+  .player-name {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 0.6rem;
+    text-transform: uppercase;
+    border-bottom: 2px solid rgba(233,204,116,0.1);
+    padding-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .attributes {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.2rem;
+    gap: 1rem;
+    padding: 0 0.5rem;
+  }
+  
+  .attributes-left {
+    padding-right: 0.8rem;
+    border-right: 2px solid rgba(233,204,116,0.1);
+  }
+  
+  .stat {
+    display: flex;
+    align-items: center;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+  }
+  
+  .value {
+    font-weight: bold;
+    margin-right: 0.2rem;
+  }
+  
+  .label {
+    font-weight: 300;
+  }
+
+  
+  
+  @media screen and (max-width: 768px) {
+    .player-card {
+      width: 100px;
+      height: 160px;
+    }
+  
+    .player-image {
+      width: 60px;
+      height: 60px;
+    }
+  
+    .player-stats {
+      font-size: 0.7rem;
+    }
+  
+    .rating {
+      font-size: 0.8rem;
+    }
+  
+    .stat {
+      font-size: 0.6rem;
+    }
+  }
+   */
+  @media screen and (max-width: 480px) {
+    .player-card {
+      width: 90px;
+      height: 144px;
+    }
+  
+    .player-image {
+      width: 50px;
+      height: 50px;
+    }
+  
+    .player-stats {
+      font-size: 0.6rem;
+    }
+  
+    .rating {
+      font-size: 0.7rem;
+    }
+  
+    .player-name {
+      font-size: 0.5rem;
+    }
+  
+    .stat {
+      font-size: 0.5rem;
+    }
+  }
 
   
 /* Media Queries */
@@ -261,7 +440,7 @@ input{
     }
 
     .pitch-container {
-        height: 60vh;
+        height: 800vh;
         margin: 20px 0;
     }
 
@@ -270,15 +449,20 @@ input{
         max-height: 400px;
         gap: 15px;
     }
+    .sidebarb{
+        margin-top: 80%;
+    }
 }
 
 @media screen and (max-width: 1000px) {
+  
+    
     .app-container {
         padding: 10px;
     }
 
     .pitch-container {
-        height: 100vh;
+        height: 140vh;
     }
 
     .btn {

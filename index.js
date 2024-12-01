@@ -13,6 +13,8 @@ const passrat = document.getElementById('passrat');
 const drirat = document.getElementById('drirat');
 const defrat = document.getElementById('defrat');
 const phyrat = document.getElementById('phyrat');
+const nationality = document.getElementById('nationality');
+const club = document.getElementById('club');
 let players = [];
 let playing = []; // players li dakhlin tiran
 let benchplayers = [...players]
@@ -22,29 +24,29 @@ let benchplayers = [...players]
     positions = {
         '4-4-2': [
             { position: 'GK', x: 50, y: 55 },
-            { position: 'LB', x: 20, y: 35 },
-            { position: 'CB', x: 35, y: 35 },
-            { position: 'CB', x: 65, y: 35 },
-            { position: 'RB', x: 80, y: 35 },
-            { position: 'LM', x: 40, y: 20 },
-            { position: 'CM', x: 40, y: 10 },
-            { position: 'CM', x: 60, y: 10 },
-            { position: 'RM', x: 80, y: 10 },
-            { position: 'ST', x: 17, y: -10 },
-            { position: 'ST', x: 85, y: -10 }
+            { position: 'LB', x: 20, y: 30 },
+            { position: 'CB', x: 35, y: 40 },
+            { position: 'CB', x: 65, y: 40 },
+            { position: 'RB', x: 80, y: 30 },
+            { position: 'LM', x: 10, y: 10 },
+            { position: 'CM', x: 40, y: 14 },
+            { position: 'CM', x: 60, y: 14 },
+            { position: 'RM', x: 90, y: 10 },
+            { position: 'ST', x: 30, y: -10 },
+            { position: 'ST', x: 70, y: -10 }
         ],
         '4-3-3': [
-            { position: 'GK', x: 50, y: 85 },
-            { position: 'LB', x: 20, y: 25 },
-            { position: 'CB', x: 35, y: 65 },
-            { position: 'CB', x: 65, y: 65 },
-            { position: 'RB', x: 80, y: 65 },
-            { position: 'CM', x: 30, y: 40 },
-            { position: 'CM', x: 50, y: 40 },
-            { position: 'CM', x: 70, y: 40 },
-            { position: 'LW', x: 20, y: 15 },
-            { position: 'ST', x: 50, y: 15 },
-            { position: 'RW', x: 80, y: 15 }
+            { position: 'GK', x: 50, y: 60 },
+            { position: 'LB', x: 10, y: 30 },
+            { position: 'CB', x: 35, y: 40 },
+            { position: 'CB', x: 65, y: 40 },
+            { position: 'RB', x: 90, y: 30 },
+            { position: 'CM', x: 30, y: 5 },
+            { position: 'CM', x: 50, y: 15 },
+            { position: 'CM', x: 70, y: 5 },
+            { position: 'LW', x: 15, y: -10 },
+            { position: 'ST', x: 50, y: -15 },
+            { position: 'RW', x: 85, y: -10 }
         ]
     };
     function loadFromLocalStorage() {
@@ -74,7 +76,7 @@ let benchplayers = [...players]
             // Second card selected - perform swap
             const secondCardPlayer = playerArray[index];
             if (firstCardPlayer.position !== secondCardPlayer.position) {
-              console.log('Cannot swap players with different positions');
+              window.alert('Cannot swap players with different positions');
               firstCardIndex = null;
               firstCardPlayer = null;
               return;
@@ -102,22 +104,11 @@ let benchplayers = [...players]
                     displayers(players);
                     
                     console.log('Swap completed');
+                    window.alert('swaped sucssessfuly');
                 
             }
         }
     }
-
-
-    
-// Add click event listeners to all boxes
-  
-
-// form.addEventListener('submit',storedatafunction)
-  
-
-
-
-
 
 
 
@@ -126,20 +117,22 @@ function storedatafunction(event){
     let player = {
     
      name : playername.value,
+     photo: playerimg.value,
      position : playerposition.value,
-     rating: parseInt(playerrating.value, 10),
-     imgUrl: playerimg.value,
-     clubImgUrl: clubimg.value,
-     countryImgUrl: countryimg.value,
-     pac: parseInt(pacrat.value, 10),
-     sho: parseInt(shorat.value, 10),
-     pas: parseInt(passrat.value, 10),
-     dri: parseInt(drirat.value, 10),
-     def: parseInt(defrat.value, 10),
-     phy: parseInt(phyrat.value, 10)
+     nationality : nationality.value, //
+     flag: countryimg.value,
+     club: club.value, //
+     logo: clubimg.value,
+     rating: playerrating.value,
+     pace: parseInt(pacrat.value, 10),
+     shooting : parseInt(shorat.value, 10),
+     passing: parseInt(passrat.value, 10),
+     dribbling: parseInt(drirat.value, 10),
+     defending: parseInt(defrat.value, 10),
+     physical: parseInt(phyrat.value, 10)
     }
     players.push(player);
-    document.forms[0].reset();   // dom alhmar mlk ktnsaha ha tselecte ga3 lforms (nodelist) li hiya arrraylike so ymkn lk tloopi 
+    form.reset();   // dom alhmar mlk ktnsaha ha tselecte ga3 lforms (nodelist) li hiya arrraylike so ymkn lk tloopi 
     
   // console.warn('added' , {players})
   window.alert('yeah')
@@ -169,8 +162,9 @@ function renderFormation() {
 
             // Get players for the current position
             const positionPlayers = players.filter(p => p.position === pos.position);
+            console.log(positionPlayers);
 
-            // Find a player not already in 'playing'
+            // Find a player not already in playing array that i dlered on the line 19
             let availablePlayer = null;
             for (let player of positionPlayers) {
                 if (!playing.includes(player)) {
@@ -183,69 +177,68 @@ function renderFormation() {
                 playing.push(availablePlayer);
 
                 div.innerHTML = `
-                <div class="cardplayer">
-                    <div class="absolute flex items-center justify-center w-full h-screen">
-                        <div class="relative w-[120px] h-[192px] bg-cover bg-center bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
-                            <div class="relative flex text-[#e9cc74] px-[0.6rem]">
-                                <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
-                                    <div class="text-[0.9rem] mt-2">${availablePlayer.rating}</div>
-                                    <div class="text-[0.8rem]">${availablePlayer.position}</div>
-                                    <div class="block my-[0.2rem_0]">
-                                        <img src="${availablePlayer.flag}" alt="Flag" class="w-[0.8rem] h-[12px] object-contain" />
-                                    </div>
-                                    <div class="block">
-                                        <img src="${availablePlayer.logo}" alt="Team" class="w-[0.9rem] h-[16px] object-contain" />
-                                    </div>
+              <div class="cardplayer">
+        <div class="absolute flex items-center justify-center w-full h-screen">
+            <div class="relative w-[100px] h-[152px] md:w-[120px] md:h-[212px] bg-cover bg-center bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
+                <div class="relative flex text-[#e9cc74] px-[0.rem]">
+                    <div class="absolute py-[0.4rem_0] text-xs sm:text-sm md:text-base uppercase font-light">
+                        <div class="text-[0.3rem] sm:text-[0.5rem] md:text-[0.7rem] mt-2 p-1">${availablePlayer.rating}</div>
+                        <div class="text-[0.3rem] sm:text-[0.5rem] md:text-[0.7rem] p-1">${availablePlayer.position}</div>
+                        <div class="block my-[0.2rem_0]">
+                            <img src="${availablePlayer.flag}" alt="Flag" class="w-[0.8rem] sm:w-[1rem] md:w-[1.2rem] h-[12px] sm:h-[14px] md:h-[11px] object-contain" />
+                        </div>
+                        <div class="block">
+                            <img src="${availablePlayer.logo}" alt="Team" class="w-[0.4rem] sm:w-[1.1rem] md:w-[1.3rem] h-[16px] sm:h-[18px] md:h-[12px] object-contain" />
+                        </div>
+                    </div>
+                    <div class="w-[50px] sm:w-[80px] md:w-[90px] h-[70px] sm:h-[80px] md:h-[80px] mx-auto overflow-hidden">
+                        <img src="${availablePlayer.photo}" alt="${availablePlayer.name}" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
+                        <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] sm:text-[0.6rem] md:text-[0.7rem] font-bold uppercase">
+                            <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
+                            <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="text-[#e9cc74] w-[80%] mx-auto">
+                        <div class="text-center text-[0.5rem] sm:text-[1.1rem] md:text-[0.7rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
+                            <span class="block text-shadow-lg">${availablePlayer.name}</span>
+                        </div>
+                        <div class="flex justify-center mt-[0.2rem]">
+                            <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.pace}</span>
+                                    <span class="font-light">PAC</span>
                                 </div>
-                                <div class="w-[70px] h-[70px] mx-auto overflow-hidden">
-                                    <img src="${availablePlayer.photo}" alt="${availablePlayer.name}" class="w-full h-full object-contain relative right-[-0.6rem] bottom-0" />
-                                    <div class="absolute right-0 bottom-[-0.5rem] w-full h-[1rem] text-right text-[#333] text-[0.5rem] font-bold uppercase">
-                                        <span class="ml-[0.4rem] text-shadow-lg">4*SM</span>
-                                        <span class="ml-[0.4rem] text-shadow-lg">4*WF</span>
-                                    </div>
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.shooting}</span>
+                                    <span class="font-light">SHO</span>
+                                </div>
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.passing}</span>
+                                    <span class="font-light">PAS</span>
                                 </div>
                             </div>
-                            <div class="relative">
-                                <div class="text-[#e9cc74] w-[80%] mx-auto">
-                                    <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-                                        <span class="block text-shadow-lg">${availablePlayer.name}</span>
-                                    </div>
-                                    <div class="flex justify-center mt-[0.2rem]">
-                                        <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.pace}</span>
-                                                <span class="font-light">PAC</span>
-                                            </div>
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.shooting}</span>
-                                                <span class="font-light">SHO</span>
-                                            </div>
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.passing}</span>
-                                                <span class="font-light">PAS</span>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.dribbling}</span>
-                                                <span class="font-light">DRI</span>
-                                            </div>
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.defending}</span>
-                                                <span class="font-light">DEF</span>
-                                            </div>
-                                            <div class="flex items-center text-[0.7rem] uppercase">
-                                                <span class="font-bold mr-[0.2rem]">${availablePlayer.physical}</span>
-                                                <span class="font-light">PHY</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                            <div>
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.dribbling}</span>
+                                    <span class="font-light">DRI</span>
+                                </div>
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.defending}</span>
+                                    <span class="font-light">DEF</span>
+                                </div>
+                                <div class="flex items-center text-[0.4rem] sm:text-[0.8rem] md:text-[0.9rem] uppercase">
+                                    <span class="font-bold mr-[0.2rem]">${availablePlayer.physical}</span>
+                                    <span class="font-light">PHY</span>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                `;
+            </div>
+        </div>
+    </div>`;
                 div.addEventListener('click', () => handleCardClick(players.indexOf(availablePlayer), players));
               
             }
@@ -293,7 +286,7 @@ fetch('./API.json')
                               const card = document.createElement('div');
                               card.classList.add('cardplayer');
                               card.innerHTML = `
-                                <div class="relative w-[120px] h-[192px] bg-cover bg-center p-[1rem_0] bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
+                                <div class="relative  md:w-[120px] md:h-[192px] bg-cover bg-center p-[1rem_0] bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                                   <div class="relative flex text-[#e9cc74] px-[0.6rem]">
                                     <div class="absolute py-[0.4rem_0] text-xs uppercase font-light">
                                       <div class="text-[0.9rem] mt-2">${player.rating}</div>
@@ -315,35 +308,35 @@ fetch('./API.json')
                                   </div>
                                   <div class="relative">
                                     <div class="text-[#e9cc74] w-[80%] mx-auto">
-                                      <div class="text-center text-[0.9rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
-                                        <span class="block text-shadow-lg">${player.name}</span>
+                                      <div class="text-center text-[0.6rem] uppercase border-b-2 border-[#e9cc74]/[0.1] pb-[0.2rem]">
+                                        <span class="block text-shadow-lg overflow-hidden ">${player.name}</span>
                                       </div>
                                       <div class="flex justify-center mt-[0.2rem]">
                                         <div class="pr-[0.8rem] border-r-2 border-[#e9cc74]/[0.1]">
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.pace}</span>
+                                            <span class="font-bold mr-[0.2rem]overflow-hidden">${player.pace}</span>
                                             <span class="font-light">PAC</span>
                                           </div>
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.shooting}</span>
+                                            <span class="font-bold mr-[0.2rem]overflow-hidden">${player.shooting}</span>
                                             <span class="font-light">SHO</span>
                                           </div>
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.passing}</span>
+                                            <span class="font-bold mr-[0.2rem]overflow-hidden">${player.passing}</span>
                                             <span class="font-light">PAS</span>
                                           </div>
                                         </div>
                                         <div>
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.dribbling}</span>
+                                            <span class="font-bold mr-[0.2rem] overflow-hidden">${player.dribbling}</span>
                                             <span class="font-light">DRI</span>
                                           </div>
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.defending}</span>
+                                            <span class="font-bold mr-[0.2rem] overflow-hidden">${player.defending}</span>
                                             <span class="font-light">DEF</span>
                                           </div>
                                           <div class="flex items-center text-[0.7rem] uppercase">
-                                            <span class="font-bold mr-[0.2rem]">${player.physical}</span>
+                                            <span class="font-bold mr-[0.2rem] overflow-hidden ">${player.physical}</span>
                                             <span class="font-light">PHY</span>
                                           </div>
                                         </div>
@@ -353,15 +346,22 @@ fetch('./API.json')
                                 </div>
                               `;
                               card.addEventListener('click', () => handleCardClick(players.indexOf(player), players));
-                            //   card.addEventListener('dblclick', () => {
-                            //     card.remove();
-                            //     const playerIndex = players.indexOf(player);
-                            //     if (playerIndex > -1) { 
-                            //         players.splice(playerIndex, 1);
-                            //         renderFormation();
-                            //         displayers(players);
-                            //     }
-                            // });
+                              card.addEventListener('dblclick', () => {
+                                // Find the index of the player in the players array
+                                const playerIndex = players.findIndex(p => p.name === player.name);
+                                
+                                // Remove the player if found
+                                if (playerIndex > -1) {
+                                    players.splice(playerIndex, 1);
+                                    
+                                    // Update localStorage with the modified players array
+                                    localStorage.setItem('players', JSON.stringify(players));
+                                    
+                                    // Re-render both the formation and the cards display
+                                    renderFormation();
+                                    displayers(players);
+                                }
+                            });
                               cardscontainer.appendChild(card);
                           }
                       });
