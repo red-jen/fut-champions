@@ -52,14 +52,14 @@ let benchplayers = [...players]
     function loadFromLocalStorage() {
       const savedPlayers = localStorage.getItem('players');
       if (savedPlayers) {
-          players = JSON.parse(savedPlayers);
+          players = JSON.parse(savedPlayers);        // to parse the array from the json format "" // also we redeclared ta axmen rah 3awdna hir l3mara the array here
           displayers(players);
           renderFormation();
       }
   }
   
-  // Add this event listener to load data when the page loads
-  document.addEventListener('DOMContentLoaded', loadFromLocalStorage);
+  // Addevenlistener to load data when the page loads
+  document.addEventListener('DOMContentLoaded', loadFromLocalStorage());
 
     let firstCardIndex = null;
     let firstCardPlayer = null;
@@ -70,10 +70,10 @@ let benchplayers = [...players]
            
             firstCardIndex = index;
             firstCardPlayer = playerArray[index];
-            // Add visual indication that card is selected (optional)
+            
             console.log('First card selected:', firstCardPlayer.name);
         } else {
-            // Second card selected - perform swap
+            // Second card selected -  do the swap thing
             const secondCardPlayer = playerArray[index];
             if (firstCardPlayer.position !== secondCardPlayer.position) {
               window.alert('Cannot swap players with different positions');
@@ -99,12 +99,12 @@ let benchplayers = [...players]
                     firstCardIndex = null;
                     firstCardPlayer = null;
                     localStorage.setItem('players', JSON.stringify(players));
-                    // Re-render everything
+                    
                     renderFormation();
                     displayers(players);
                     
                     console.log('Swap completed');
-                    window.alert('swaped sucssessfuly');
+                    // window.alert('swaped sucssessfuly');
                 
             }
         }
@@ -124,7 +124,7 @@ function storedatafunction(event){
      club: club.value, //
      logo: clubimg.value,
      rating: playerrating.value,
-     pace: parseInt(pacrat.value, 10),
+     pace: parseInt(pacrat.value, 10),                                  // 10 for dicimal number 2 for binairy
      shooting : parseInt(shorat.value, 10),
      passing: parseInt(passrat.value, 10),
      dribbling: parseInt(drirat.value, 10),
@@ -135,24 +135,24 @@ function storedatafunction(event){
     form.reset();   // dom alhmar mlk ktnsaha ha tselecte ga3 lforms (nodelist) li hiya arrraylike so ymkn lk tloopi 
     
   // console.warn('added' , {players})
-  window.alert('yeah')
+  window.alert('yeah!! you gonna find  the player on the bench now');
 
   
 
  
   // saving to local storage
-  localStorage.setItem('player', JSON.stringify(players))   // needs to clarify this thing here 
+  localStorage.setItem('players', JSON.stringify(players))   // needs to clarify this thing here   // because local storage can only store strings on json format 
 
   displayers(players);  // n3awdo n5wiw wn3mro lcontainer bzyada dyalna 
     renderFormation();
 }
 
 function renderFormation() {
-    const tecnique = tecniqueSelect.value;
+    const tecnique = tecniqueSelect.value;     //select input value of 4-4-2 for exemple
     pitch.innerHTML = '';
     playing = [];
 
-    if (positions[tecnique]) {
+    if (positions[tecnique]) {                         // check if the key tecnique exist i prefer sometime . than []  to more clarification
         positions[tecnique].forEach(pos => {
             const div = document.createElement('div');
             div.classList.add('playerposition');
@@ -161,13 +161,14 @@ function renderFormation() {
             div.textContent = pos.position;
 
             // Get players for the current position
-            const positionPlayers = players.filter(p => p.position === pos.position);
+            const positionPlayers = players.filter(p => p.position === pos.position);       // now we got an array of all the players with the same position ex(gk gk gk)
             console.log(positionPlayers);
 
-            // Find a player not already in playing array that i dlered on the line 19
+            // Find a player not already in playing array that i dlered on the line 19 then stock the player object on the new variable to use it afterwards
             let availablePlayer = null;
             for (let player of positionPlayers) {
-                if (!playing.includes(player)) {
+               // we used includes cause it returnes boolean not the element like find
+                if (!playing.includes(player)) {                                                                   
                     availablePlayer = player;
                     break;
                 }
@@ -175,14 +176,14 @@ function renderFormation() {
 
             if (availablePlayer) {
                 playing.push(availablePlayer);
-
+                                                                                                                                           // using template literals to get the data
                 div.innerHTML = `
               <div class="cardplayer">
         <div class="absolute flex items-center justify-center w-full h-screen">
             <div class="relative w-[100px] h-[152px] md:w-[120px] md:h-[212px] bg-cover bg-center bg-[url('https://selimdoyranli.com/cdn/fut-player-card/img/card_bg.png')] transition-all ease-in">
                 <div class="relative flex text-[#e9cc74] px-[0.rem]">
                     <div class="absolute py-[0.4rem_0] text-xs sm:text-sm md:text-base uppercase font-light">
-                        <div class="text-[0.3rem] sm:text-[0.5rem] md:text-[0.7rem] mt-2 p-1">${availablePlayer.rating}</div>
+                        <div class="text-[0.3rem] sm:text-[0.5rem] md:text-[0.7rem] mt-2 p-1">${availablePlayer.rating}</div>                      
                         <div class="text-[0.3rem] sm:text-[0.5rem] md:text-[0.7rem] p-1">${availablePlayer.position}</div>
                         <div class="block my-[0.2rem_0]">
                             <img src="${availablePlayer.flag}" alt="Flag" class="w-[0.8rem] sm:w-[1rem] md:w-[1.2rem] h-[12px] sm:h-[14px] md:h-[11px] object-contain" />
@@ -258,7 +259,7 @@ function renderFormation() {
 fetch('./API.json')
     .then(response => response.json())
     .then(playern => {
-        // Only load API data if localStorage is empty
+        // f2awel khtra  API data ila can  localStorage khawi
         if (!localStorage.getItem('players')) {
             players.push(...playern.players);
             localStorage.setItem('players', JSON.stringify(players));
@@ -279,7 +280,9 @@ fetch('./API.json')
                   // console.log(playing);
                       players.forEach(player => {
                           // Check if the player is already in the 'playing' array
-                          const isAlreadyPlaying = playing.some(playingPlayer => playingPlayer.name === player.name);
+                         const isAlreadyPlaying = playing.some(playingPlayer => playingPlayer.name === player.name);    // some mxi bha every ktxol 3al 29al whd element yth9e9 fih cond returnes boolean 
+                         
+                          console.warn(isAlreadyPlaying);
                   
                           if (!isAlreadyPlaying) {
                               // Create the card only if the player is not already playing
@@ -350,14 +353,14 @@ fetch('./API.json')
                                 // Find the index of the player in the players array
                                 const playerIndex = players.findIndex(p => p.name === player.name);
                                 
-                                // Remove the player if found
+                                // Remove the player if found   -1 rak 3rf y3ni mkynax flarray 
                                 if (playerIndex > -1) {
-                                    players.splice(playerIndex, 1);
+                                    players.splice(playerIndex, 1);                                  // 1 l3ada dles elements li briti tmhi mora start dlindex  li khtariti
                                     
-                                    // Update localStorage with the modified players array
+                                    // Update 
                                     localStorage.setItem('players', JSON.stringify(players));
                                     
-                                    // Re-render both the formation and the cards display
+                                 
                                     renderFormation();
                                     displayers(players);
                                 }

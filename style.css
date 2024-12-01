@@ -399,6 +399,9 @@ input{
     }
   }
    */
+   .selected{
+    border: 2px solid brown;
+   }
   @media screen and (max-width: 480px) {
     .player-card {
       width: 90px;
@@ -445,7 +448,7 @@ input{
     }
 
     .teambench {
-        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));    /* xhal ma qdina nemro bla overflow*/
         max-height: 400px;
         gap: 15px;
     }
