@@ -135,10 +135,14 @@ input{
     /* background-color: aqua; */
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 96%;
+    width: 100%;
     height: 1000px;
     overflow-y: scroll;
     scroll-behavior: smooth;
+    background-color: #69696976;
+   
+    border-radius: 5px;
+    margin-top: 5px;
     
 }
 

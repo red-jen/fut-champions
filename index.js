@@ -266,7 +266,8 @@ fetch('./API.json')
         }
         displayers(players);
         renderFormation();
-    });
+    })
+    .catch(ermor => console.log("ha biti tzidha"));
                     
 
                     
